@@ -1,0 +1,259 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>SISMOBC  | Vigilancia sísmica regional</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <aside class="sidebar">
+      <a href="#inicio" class="logo" aria-label="SISMOBC inicio"
+        ><span class="pulse">⌁</span><small>SISMO<span>BC</span></small></a
+      >
+      <div class="side-icons">
+        <a href="#inicio" title="Monitoreo" aria-label="Monitoreo">⌁</a
+        ><a href="#inicio" class="active" title="Mapa" aria-label="Mapa">◫</a
+        ><a href="#historial" title="Historial" aria-label="Historial">◷</a>
+      </div>
+      <div class="operativo">
+        ● <span>SISTEMA<br />DEMO</span>
+      </div>
+    </aside>
+    <div class="app">
+      <header class="top">
+        <div>
+          <div class="eyebrow">CENTRO DE MONITOREO</div>
+          <h2>Actividad sísmica</h2>
+        </div>
+        <div class="top-right">
+          <span class="demo-pill">● DATOS DE DEMOSTRACIÓN</span
+          ><span class="bell" aria-hidden="true">♧</span
+          ><span class="avatar">BC</span>
+        </div>
+      </header>
+      <main id="inicio" class="container">
+        <section id="vista-inicio">
+          <div class="intro">
+            <div>
+              <div class="eyebrow">ESTADO ACTUAL · BAJA CALIFORNIA</div>
+              <h1>Vigilancia sísmica regional</h1>
+              <p>
+                Información ilustrativa de los cinco municipios monitoreados.
+              </p>
+            </div>
+            <div class="regional">
+              <span class="dot yellow"></span>
+              <div>
+                <small>NIVEL REGIONAL</small><strong>Precaución</strong>
+              </div>
+            </div>
+          </div>
+          <div class="hero">
+            <div
+              class="map"
+              aria-label="Mapa esquemático interactivo de Baja California"
+            >
+              <svg
+                viewBox="0 0 900 460"
+                preserveAspectRatio="xMidYMid meet"
+                aria-hidden="true"
+              >
+                <defs>
+                  <pattern
+                    id="dots"
+                    width="13"
+                    height="13"
+                    patternUnits="userSpaceOnUse"
+                  >
+                    <circle cx="1" cy="1" r=".5" fill="#24304b" />
+                  </pattern>
+                </defs>
+                <rect width="900" height="460" fill="url(#dots)" />
+                <g stroke="#27334d" stroke-width="1.5">
+                  <path
+                    d="M280 0V460 M410 0V460 M540 0V460 M670 0V460 M0 100H900 M0 200H900 M0 300H900 M0 400H900"
+                  />
+                </g>
+                <path
+                  d="M300 0L535 0L520 235L700 460L485 460L545 410L360 235Z"
+                  fill="#465681"
+                  opacity=".87"
+                />
+                <text
+                  x="110"
+                  y="305"
+                  transform="rotate(-76 110 305)"
+                  class="sea"
+                >
+                  OCÉANO PACÍFICO
+                </text>
+                <text
+                  x="760"
+                  y="330"
+                  transform="rotate(-72 760 330)"
+                  class="sea"
+                >
+                  GOLFO DE CALIFORNIA
+                </text>
+              </svg>
+              <div id="map-pins"></div>
+              <div class="legend">
+                <span><i class="dot green"></i> Seguro</span
+                ><span><i class="dot yellow"></i> Precaución</span
+                ><span><i class="dot red"></i> Riesgo</span>
+              </div>
+              <div class="map-note">
+                Mapa esquemático · posiciones ilustrativas
+              </div>
+            </div>
+            <div class="featured">
+              <div class="featured-top">
+                <span class="muted-label">EVENTO SELECCIONADO</span
+                ><span id="featured-status" class="status"></span>
+              </div>
+              <h2 id="featured-name"></h2>
+              <p id="featured-zone" class="sub"></p>
+              <div class="rule"></div>
+              <div class="metric-title">MAGNITUD · DEMO</div>
+              <div class="magline">
+                <strong id="featured-mag"></strong
+                ><span class="wave">▏▎▍▌▋▍▎▏</span>
+              </div>
+              <div class="rule"></div>
+              <div class="split">
+                <div>
+                  <div class="metric-title">PROFUNDIDAD</div>
+                  <strong id="featured-depth"></strong>
+                </div>
+                <div>
+                  <div class="metric-title">DISTANCIA</div>
+                  <strong id="featured-distance"></strong>
+                </div>
+              </div>
+              <p id="featured-update" class="sub"></p>
+              <button id="report-btn" class="report-button">
+                Ver reporte completo <span>→</span>
+              </button>
+            </div>
+          </div>
+          <section class="summary">
+            <div class="eyebrow">MONITOREO MUNICIPAL</div>
+            <div class="summary-head">
+              <h2>Resumen por municipio</h2>
+              <small>Distancias ilustrativas del prototipo</small>
+            </div>
+            <div id="municipio-cards" class="cards"></div>
+          </section>
+          <section class="signal">
+            <div class="signal-heading">
+              <div>
+                <div class="eyebrow">DATOS DE LA SEMANA 9</div>
+                <h2>Amplitud vs. tiempo</h2>
+                <p>
+                  Serie del archivo JSON procesado en Python. No representa
+                  magnitud Richter ni datos en vivo.
+                </p>
+              </div>
+              <div class="signal-stat">
+                <small>PICO ABSOLUTO</small><strong id="peak">—</strong
+                ><small id="peak-time"></small>
+              </div>
+            </div>
+            <div class="chart-wrap">
+              <canvas
+                id="signal-chart"
+                role="img"
+                aria-label="Gráfica de amplitud sísmica contra tiempo"
+              ></canvas>
+            </div>
+            <p id="data-status" class="footnote">Cargando JSON…</p>
+          </section>
+        </section>
+        <section id="vista-reporte" hidden>
+          <a class="back" href="#inicio" id="back"
+            >← &nbsp; Volver al monitoreo</a
+          >
+          <div class="report-title">
+            <div>
+              <div class="eyebrow">
+                REPORTE MUNICIPAL · DATOS DE DEMOSTRACIÓN
+              </div>
+              <h1 id="report-name"></h1>
+              <p id="report-zone" class="sub"></p>
+            </div>
+            <span id="report-status" class="status"></span>
+          </div>
+          <div class="report-metrics">
+            <div class="big-metric">
+              <div class="metric-title">MAGNITUD ACTUAL · DEMO</div>
+              <strong id="report-mag"></strong><small>VALOR ILUSTRATIVO</small>
+            </div>
+            <div class="metric-box">
+              <span>⌁</span>
+              <div class="metric-title">PROFUNDIDAD</div>
+              <strong id="report-depth"></strong>
+            </div>
+            <div class="metric-box">
+              <span>♧</span>
+              <div class="metric-title">TU DISTANCIA · DEMO</div>
+              <strong id="report-distance"></strong>
+            </div>
+            <div class="metric-box">
+              <span>◷</span>
+              <div class="metric-title">ACTUALIZACIÓN · DEMO</div>
+              <strong id="report-update"></strong>
+            </div>
+          </div>
+          <div class="report-lower">
+            <div class="panel">
+              <div class="eyebrow">REGISTROS ILUSTRATIVOS</div>
+              <h2>Historial sísmico</h2>
+              <div class="table-scroll">
+                <table>
+                  <thead>
+                    <tr>
+                      <th>REGISTRO</th>
+                      <th>MAGNITUD</th>
+                      <th>PROFUNDIDAD</th>
+                      <th>ESTADO</th>
+                    </tr>
+                  </thead>
+                  <tbody id="history-body"></tbody>
+                </table>
+              </div>
+            </div>
+            <div class="panel">
+              <div class="eyebrow">TENDENCIA · DEMOSTRACIÓN</div>
+              <h2>Actividad registrada</h2>
+              <div id="bars" class="bars"></div>
+              <p class="footnote">
+                Valores de ejemplo para visualizar el diseño de Figma.
+              </p>
+            </div>
+          </div>
+          <div class="panel report-signal">
+            <div class="eyebrow">SERIE JSON · SEMANA 9</div>
+            <h2>Amplitud vs. tiempo</h2>
+            <p class="sub">
+              La serie corresponde al archivo de la Semana 9 y no está asociada
+              a un municipio específico.
+            </p>
+            <div class="chart-wrap">
+              <canvas
+                id="report-signal-chart"
+                role="img"
+                aria-label="Gráfica de amplitud vs tiempo"
+              ></canvas>
+            </div>
+          </div>
+        </section>
+      </main>
+      <footer>
+        Proyecto académico SISMOBC · Datos municipales simulados · No utilizar
+        para decisiones de protección civil.
+      </footer>
+    </div>
+    <script src="app.js" defer></script>
+  </body>
+</html>
